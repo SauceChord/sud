@@ -22,24 +22,27 @@ class GameTest(unittest.TestCase):
         game = Game()
         self.assertRaises(GameError, game.get_player_room)
         game.add_room("Spawn")
-        self.assertEqual(game.get_player_room(), "Spawn")
+        self.assertInRoom("Spawn")
         game.add_room("Another Room")
-        self.assertEqual(game.get_player_room(), "Spawn")
+        self.assertInRoom("Spawn")
 
     def test_go_north(self):
         self.game.exec("go north")
-        self.assertEqual(self.game.get_player_room(), "North of Spawn")
+        self.assertInRoom("North of Spawn")
 
     def test_go_south(self):
         self.game.exec("go south")
-        self.assertEqual(self.game.get_player_room(), "South of Spawn")
+        self.assertInRoom("South of Spawn")
 
     def test_go_about(self):
         self.game.exec("go south")
-        self.assertEqual(self.game.get_player_room(), "South of Spawn")
+        self.assertInRoom("South of Spawn")
         self.game.exec("go north")
-        self.assertEqual(self.game.get_player_room(), "Spawn")
+        self.assertInRoom("Spawn")
         self.game.exec("go north")
-        self.assertEqual(self.game.get_player_room(), "North of Spawn")
+        self.assertInRoom("North of Spawn")
         self.game.exec("go south")
-        self.assertEqual(self.game.get_player_room(), "Spawn")
+        self.assertInRoom("Spawn")
+
+    def assertInRoom(self, room):
+        self.assertEqual(self.game.get_player_room(), room)
