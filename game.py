@@ -15,10 +15,10 @@ class Game():
     def has_room(self, room):
         return room in self.rooms
 
-    def link_rooms(self, room_a, room_b, direction):
-        if room_a not in self.links:
-            self.links[room_a] = {}
-        self.links[room_a][direction] = room_b
+    def link_rooms(self, link_from, link_to, direction):
+        if link_from not in self.links:
+            self.links[link_from] = {}
+        self.links[link_from][direction] = link_to
 
     def go(self, direction):            
         if self.player_room in self.links:
